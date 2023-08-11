@@ -1,35 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { getRowReportsById } from "../../services/apiService";
-
-interface CustomStat {
-  attribute: string;
-  vinecount: number;
-  attributeVal: number;
-}
-interface RowData {
-  id: number;
-  attribute: string;
-  blockId: number;
-  rowId: number;
-  scanArea: number;
-  [key: string]: number | string; // Define dynamic keys
-}
-interface BlockOption {
-  id: number;
-  name: string;
-}
-interface DataTableProps {
-  selectedFilterValues: BlockOption[];
-}
+import { RowData, DataTableProps, CustomStat } from "../../Models/index";
 
 const columns: GridColDef[] = [
-
   { field: "attribute", headerName: "Attribute", width: 130 },
   { field: "blockId", headerName: "Block ID", width: 100 },
   { field: "rowId", headerName: "Row ID", width: 100 },
   { field: "Pruned to Target%", headerName: "Pruned to Target%", width: 100 },
-  
 
   { field: "scanArea", headerName: "Scan Area", type: "number", width: 100 },
   { field: "0 Canes", headerName: " 0 Canes", type: "number", width: 100 },
@@ -41,7 +19,7 @@ const columns: GridColDef[] = [
 
 const DataTable: React.FC<DataTableProps> = ({ selectedFilterValues }) => {
   const [data, setData] = React.useState<RowData[]>([]);
-  const [loaded, setLoaded] = React.useState(false); 
+  const [loaded, setLoaded] = React.useState(false);
 
   useEffect(() => {
     if (selectedFilterValues.length > 0) {
@@ -80,13 +58,15 @@ const DataTable: React.FC<DataTableProps> = ({ selectedFilterValues }) => {
           }
         });
 
-        rowData['Pruned to Target%'] = ((highestCaneCount / sumCaneCounts) * 100).toFixed(1);
+        rowData["Pruned to Target%"] = (
+          (highestCaneCount / sumCaneCounts) *
+          100
+        ).toFixed(1);
 
         return rowData;
       });
 
       setData(customStatsRows); // Set the data state here
-
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -98,7 +78,6 @@ const DataTable: React.FC<DataTableProps> = ({ selectedFilterValues }) => {
         rows={data}
         columns={columns}
         autoHeight
-         
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 5 },
@@ -108,6 +87,6 @@ const DataTable: React.FC<DataTableProps> = ({ selectedFilterValues }) => {
       />
     </div>
   );
-}
+};
 
 export default DataTable;

@@ -1,11 +1,7 @@
-import React, { useState } from 'react';
-import SelectedValueBox from './SelectedValueBox';
-import SearchBar from '../filters/searchBar';
-
-interface BlockOption {
-  id: number;
-  name: string;
-}
+import React, { useState } from "react";
+import SelectedValueBox from "./SelectedValueBox";
+import SearchBar from "../filters/searchBar";
+import { BlockOption } from "../../Models/index";
 
 interface FiltersProps {
   onApplyFilter: (selectedValues: BlockOption[]) => void; // Add this prop
@@ -28,9 +24,7 @@ const Filters: React.FC<FiltersProps> = ({ onApplyFilter }) => {
   const handleApplyFilter = () => {
     const idsForApi = selectedValues.map((value) => value.id);
     setSelectedIdsForApi(idsForApi);
-    onApplyFilter(selectedValues); 
-    
-
+    onApplyFilter(selectedValues);
   };
 
   return (

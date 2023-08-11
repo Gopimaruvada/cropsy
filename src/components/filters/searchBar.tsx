@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { FaSearch, FaTimes } from 'react-icons/fa';
-import { getBlocks } from "../../services/apiService"
+import React, { useState, useEffect } from "react";
+import { FaSearch, FaTimes } from "react-icons/fa";
+import { getBlocks } from "../../services/apiService";
 import "./Filter.css";
-
-interface BlockOption {
-  id: number;
-  name: string;
-}
+import { BlockOption } from "../../Models/index";
 
 interface SearchBarProps {
   results: BlockOption[];
@@ -14,7 +10,7 @@ interface SearchBarProps {
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ results, onSelect }) => {
-  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [searchResults, setSearchResults] = useState<BlockOption[]>([]);
 
   useEffect(() => {
@@ -47,7 +43,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ results, onSelect }) => {
 
   const handleResultClick = (selectedBlock: BlockOption) => {
     onSelect(selectedBlock); // Pass the entire selectedBlock
-    setSearchTerm('');
+    setSearchTerm("");
     setSearchResults([]); // Clear search results after selecting
   };
 

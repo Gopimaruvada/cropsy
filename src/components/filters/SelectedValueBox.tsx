@@ -2,10 +2,7 @@
 
 import React from 'react';
 
-interface SearchResult {
-  id: number;
-  name: string;
-}
+import {SearchResult} from "../../Models/index"
 
 interface SelectedValueBoxProps {
   selectedValues: SearchResult[];
