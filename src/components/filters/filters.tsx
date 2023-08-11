@@ -1,24 +1,22 @@
-// src/App.tsx
+import React, { useState } from 'react';
+import SelectedValueBox from './SelectedValueBox';
+import SearchBar from '../filters/searchBar';
 
-import React, { useState } from "react";
-import SelectedValueBox from "./SelectedValueBox";
-import SearchBar from "../filters/searchBar";
-
-interface SearchResult {
+interface BlockOption {
   id: number;
   name: string;
 }
 
 const Filters: React.FC = () => {
-  const [selectedValues, setSelectedValues] = useState<string[]>([]);
+  const [selectedValues, setSelectedValues] = useState<BlockOption[]>([]); // Change the type of selectedValues
 
-  const handleSelect = (selectedValue: string) => {
+  const handleSelect = (selectedValue: BlockOption) => {
     setSelectedValues([...selectedValues, selectedValue]);
   };
 
-  const handleRemoveValue = (valueToRemove: string) => {
+  const handleRemoveValue = (valueToRemove: BlockOption) => {
     const updatedValues = selectedValues.filter(
-      (value) => value !== valueToRemove
+      (value) => value.id !== valueToRemove.id // Filter based on id
     );
     setSelectedValues(updatedValues);
   };

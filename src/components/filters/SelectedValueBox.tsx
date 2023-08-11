@@ -1,39 +1,24 @@
 // src/SelectedValueBox.tsx
-import React from "react";
 
-interface SelectedValueBoxProps {
-  selectedValues: string[];
-  onRemove: (value: string) => void;
+import React from 'react';
+
+interface SearchResult {
+  id: number;
+  name: string;
 }
 
-const SelectedValueBox: React.FC<SelectedValueBoxProps> = ({
-  selectedValues,
-  onRemove,
-}) => {
+interface SelectedValueBoxProps {
+  selectedValues: SearchResult[];
+  onRemove: (value: SearchResult) => void;
+}
+
+const SelectedValueBox: React.FC<SelectedValueBoxProps> = ({ selectedValues, onRemove }) => {
   return (
-    <div
-      style={{
-        backgroundColor: "white",
-        padding: "10px",
-        margin: "10px",
-        display: "flex",
-        flexWrap: "wrap",
-      }}
-    >
-      {selectedValues?.map((value) => (
-        <div
-          key={value}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            marginRight: "10px",
-            marginBottom: "5px",
-          }}
-        >
-          <span>{value}</span>
-          <button onClick={() => onRemove(value)} style={{ marginLeft: "5px" }}>
-            x
-          </button>
+    <div style={{ backgroundColor: 'white', padding: '10px', margin: '10px', display: 'flex', flexWrap: 'wrap' }}>
+      {selectedValues.map(value => (
+        <div key={value.id} style={{ display: 'flex', alignItems: 'center', marginRight: '10px', marginBottom: '5px' }}>
+          <span>{value.name}</span>
+          <button onClick={() => onRemove(value)} style={{ marginLeft: '5px' }}>x</button>
         </div>
       ))}
     </div>
