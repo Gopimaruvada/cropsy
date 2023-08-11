@@ -1,8 +1,8 @@
 // src/SearchBar.tsx
 
-import React, { useState, useEffect } from 'react';
-import { FaSearch, FaTimes } from 'react-icons/fa';
-import { getBlocks } from "../../services/apiService"
+import React, { useState, useEffect } from "react";
+import { FaSearch, FaTimes } from "react-icons/fa";
+import { getBlocks } from "../../services/apiService";
 import "./Filter.css";
 
 interface BlockOption {
@@ -16,7 +16,7 @@ interface SearchBarProps {
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSelect }) => {
-  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [searchResults, setSearchResults] = useState<BlockOption[]>([]);
 
   useEffect(() => {
@@ -32,11 +32,11 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSelect }) => {
       const blocks = await getBlocks(term); // Call the API with the search term
 
       // Map the response data to BlockOption format (id as value and name as label)
-      const blockOptions: BlockOption[] = blocks?.map((block:any) => ({
+      const blockOptions: BlockOption[] = blocks?.map((block: any) => ({
         id: block.id,
         name: block.name,
       }));
- console.warn(blockOptions)
+      console.warn(blockOptions);
       setSearchResults(blockOptions);
     } catch (error) {
       console.error("Error fetching search results:", error);
@@ -50,7 +50,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSelect }) => {
 
   const handleResultClick = (selectedBlock: BlockOption) => {
     onSelect(selectedBlock.name);
-    setSearchTerm('');
+    setSearchTerm("");
     setSearchResults([]); // Clear search results after selecting
   };
 
@@ -65,18 +65,19 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSelect }) => {
           className="search-input"
         />
         {searchTerm ? (
-          <FaTimes className="clear-icon" onClick={() => setSearchTerm('')} />
+          <FaTimes className="clear-icon" onClick={() => setSearchTerm("")} />
         ) : (
           <FaSearch className="search-icon" />
         )}
       </div>
       <ul className="search-results">
-        {searchResults.map(result => (
+        {searchResults.map((result) => (
           <li key={result.id} onClick={() => handleResultClick(result)}>
             {result.name}
           </li>
         ))}
       </ul>
+      <div></div>
     </div>
   );
 };
