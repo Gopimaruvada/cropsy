@@ -1,6 +1,6 @@
 import React from "react";
 import logo from '../../images/logo-grey.svg';
-import "./navbar.css";
+import "./navbar.scss";
 
 const menuOptionsData = [
   { id: 1, label: "Map", link: "/map" },

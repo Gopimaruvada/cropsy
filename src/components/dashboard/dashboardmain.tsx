@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Filters from "../filters/filters";
 import DataTable from "../datagrid/dataGrid";
-import "./dashboard.css";
+import "./dashboard.scss";
 import { BlockOption } from "../../Models/index";
 
 function DashboardMain() {
