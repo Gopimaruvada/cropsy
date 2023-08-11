@@ -1,0 +1,19 @@
+.dashboard_main {
+    display: flex;
+    width: 100%;
+    margin-top:10px;
+  }
+  
+  .filters {
+    flex: 20%; /* Take up 30% of the available space */
+    background-color: #F1F1F1;
+    padding: 20px;
+    border-radius: 5px;
+    
+  }
+  
+  .data_grid {
+    flex: 80%; /* Take up 70% of the available space */
+    padding: 20px;
+  }
+  
