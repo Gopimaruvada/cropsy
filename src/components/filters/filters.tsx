@@ -7,18 +7,30 @@ interface BlockOption {
   name: string;
 }
 
-const Filters: React.FC = () => {
-  const [selectedValues, setSelectedValues] = useState<BlockOption[]>([]); // Change the type of selectedValues
+interface FiltersProps {
+  onApplyFilter: (selectedValues: BlockOption[]) => void; // Add this prop
+}
 
+const Filters: React.FC<FiltersProps> = ({ onApplyFilter }) => {
+  const [selectedValues, setSelectedValues] = useState<BlockOption[]>([]);
+  const [selectedIdsForApi, setSelectedIdsForApi] = useState<number[]>([]);
   const handleSelect = (selectedValue: BlockOption) => {
     setSelectedValues([...selectedValues, selectedValue]);
   };
 
   const handleRemoveValue = (valueToRemove: BlockOption) => {
     const updatedValues = selectedValues.filter(
-      (value) => value.id !== valueToRemove.id // Filter based on id
+      (value) => value.id !== valueToRemove.id
     );
     setSelectedValues(updatedValues);
+  };
+
+  const handleApplyFilter = () => {
+    const idsForApi = selectedValues.map((value) => value.id);
+    setSelectedIdsForApi(idsForApi);
+    onApplyFilter(selectedValues); 
+    
+
   };
 
   return (
@@ -32,7 +44,9 @@ const Filters: React.FC = () => {
         />
       )}
 
-      <button className="Filter-button">Apply Filter</button>
+      <button className="Filter-button" onClick={handleApplyFilter}>
+        Apply Filter
+      </button>
     </div>
   );
 };

@@ -1,8 +1,6 @@
-import * as React from "react";
-import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { getRowReportsById, getBlocks } from "../../services/apiService"; 
+import React, { useState, useEffect } from "react";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { getRowReportsById } from "../../services/apiService";
 
 interface CustomStat {
   attribute: string;
@@ -17,11 +15,12 @@ interface RowData {
   scanArea: number;
   [key: string]: number | string; // Define dynamic keys
 }
-
+interface BlockOption {
+  id: number;
+  name: string;
+}
 interface DataTableProps {
-  data: RowData[];
-  isLoading: boolean;
-  // Other props...
+  selectedFilterValues: BlockOption[];
 }
 
 const columns: GridColDef[] = [
@@ -40,20 +39,25 @@ const columns: GridColDef[] = [
   { field: "4 Canes", headerName: " 4 Canes", type: "number", width: 100 },
 ];
 
-export default function DataTable() {
+const DataTable: React.FC<DataTableProps> = ({ selectedFilterValues }) => {
   const [data, setData] = React.useState<RowData[]>([]);
   const [loaded, setLoaded] = React.useState(false); 
 
-  React.useEffect(() => {
-    if (!loaded) {
-      fetchData();
-      setLoaded(true); 
+  useEffect(() => {
+    if (selectedFilterValues.length > 0) {
+      fetchData(selectedFilterValues[0].id); // Assuming you want to use the first selected value's id
     }
-  }, [loaded]);
+  }, [selectedFilterValues]);
 
-  const fetchData = async () => {
+  useEffect(() => {
+    if (selectedFilterValues.length > 0) {
+      fetchData(selectedFilterValues[0].id); // Assuming you want to use the first selected value's id
+    }
+  }, [selectedFilterValues]);
+
+  const fetchData = async (selectedId: number) => {
     try {
-      const rowReports = await getRowReportsById(463);
+      const rowReports = await getRowReportsById(selectedId);
 
       const customStatsRows: RowData[] = rowReports?.map((row: any) => {
         const rowData: RowData = {
@@ -105,3 +109,5 @@ export default function DataTable() {
     </div>
   );
 }
+
+export default DataTable;
