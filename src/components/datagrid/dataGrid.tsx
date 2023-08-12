@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { getRowReportsById } from "../../services/apiService";
 import { RowData, DataTableProps, CustomStat } from "../../Models/index";
@@ -19,7 +19,7 @@ const columns: GridColDef[] = [
 
 const DataTable: React.FC<DataTableProps> = ({ selectedFilterValues }) => {
   const [data, setData] = React.useState<RowData[]>([]);
-  const [loaded, setLoaded] = React.useState(false);
+ 
   const [sumOfVines, setSumVines] = React.useState<number>(0);
   const [punedTarget, setPunedTarget] = React.useState("");
   useEffect(() => {
