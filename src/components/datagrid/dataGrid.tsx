@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { getRowReportsById } from "../../services/apiService";
 import { RowData, DataTableProps, CustomStat } from "../../Models/index";
-
+import "./datagrid.scss";
 const columns: GridColDef[] = [
   { field: "attribute", headerName: "Attribute", width: 130 },
   { field: "blockId", headerName: "Block ID", width: 100 },
@@ -20,7 +20,8 @@ const columns: GridColDef[] = [
 const DataTable: React.FC<DataTableProps> = ({ selectedFilterValues }) => {
   const [data, setData] = React.useState<RowData[]>([]);
   const [loaded, setLoaded] = React.useState(false);
-
+  const [sumOfVines, setSumVines] = React.useState<number>(0);
+  const [punedTarget, setPunedTarget] = React.useState("");
   useEffect(() => {
     if (selectedFilterValues.length > 0) {
       fetchData(selectedFilterValues[0].id); // Assuming you want to use the first selected value's id
@@ -36,7 +37,38 @@ const DataTable: React.FC<DataTableProps> = ({ selectedFilterValues }) => {
   const fetchData = async (selectedId: number) => {
     try {
       const rowReports = await getRowReportsById(selectedId);
+      const sumOfAllVines = data.reduce((total, row) => {
+        const vineKeys = Object.keys(row).filter((key) =>
+          key.includes("Canes")
+        );
+        const rowVineCount = vineKeys.reduce(
+          (rowTotal, key) => rowTotal + (row[key] as number),
+          0
+        );
+        return total + rowVineCount;
+      }, 0);
+      console.log(sumOfAllVines);
+      setSumVines(sumOfAllVines);
+      // Calculate the sum of vines for the highest count
+      const highestCaneCount = Math.max(
+        ...data.map((row) => {
+          const vineKeys = Object.keys(row).filter((key) =>
+            key.includes("Canes")
+          );
+          return vineKeys.reduce(
+            (rowTotal, key) => rowTotal + (row[key] as number),
+            0
+          );
+        })
+      );
 
+      // Calculate the "Pruned to Target" percentage
+      const prunedToTargetPercentage = (
+        (highestCaneCount / sumOfAllVines) *
+        100
+      ).toFixed(2);
+      setPunedTarget(prunedToTargetPercentage);
+      console.log("Pruned to Target Percentage:", prunedToTargetPercentage);
       const customStatsRows: RowData[] = rowReports?.map((row: any) => {
         const rowData: RowData = {
           id: row.id,
@@ -61,7 +93,7 @@ const DataTable: React.FC<DataTableProps> = ({ selectedFilterValues }) => {
         rowData["Pruned to Target%"] = (
           (highestCaneCount / sumCaneCounts) *
           100
-        ).toFixed(1);
+        ).toFixed(2);
 
         return rowData;
       });
@@ -74,6 +106,10 @@ const DataTable: React.FC<DataTableProps> = ({ selectedFilterValues }) => {
 
   return (
     <div style={{ height: 400, width: "100%" }}>
+      <div className="container">
+        <div className="left-div">Pruned to Target {punedTarget} %</div>
+        <div className="right-div">Total Vines : {sumOfVines}</div>
+      </div>
       <DataGrid
         rows={data}
         columns={columns}

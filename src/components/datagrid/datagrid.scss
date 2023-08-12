@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+    font-weight: bold;
+  .left-div {
+    text-align: left;
+  }
+  
+  .right-div {
+    text-align: right;
+  }
+  }

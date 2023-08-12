@@ -14,6 +14,7 @@ function DashboardMain() {
   };
 
   return (
+    
     <div className="dashboard_main">
       <div className="filters">
         <Filters onApplyFilter={handleApplyFilter} />

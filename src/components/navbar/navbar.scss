@@ -1,33 +1,35 @@
 /* styles.css */
 .navbar {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f1f1f1;
+  color: white;
+  .logo {
     display: flex;
     align-items: center;
-    padding: 10px 20px;
-    background-color: #F1F1F1;
-    color: white;
-    .logo {
-      display: flex;
-      align-items: center;
-      margin-right: 20px;
-    }
-    
-    .logo img {
-      width: 200px;
-      height: auto;
-    }
-    
-    .menu-options {
-      list-style: none;
-      display: flex;
-      gap: 20px;
-    }
-    
-    .menu-options li a {
-      text-decoration: none;
-      color: #666;
-      font-weight: bold;
-    }
+    margin-right: 20px;
   }
-  
 
-  
+  .logo img {
+    width: 200px;
+    height: auto;
+  }
+
+  .menu-options {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+
+  .menu-options li a {
+    text-decoration: none;
+    color: #666;
+    font-weight: bold;
+  }
+  .warning-icon {
+    float: right;
+    position: absolute;
+    right: 40px;
+  }
+}
