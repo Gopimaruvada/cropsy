@@ -17,7 +17,7 @@ You will also see any lint errors in the console.
 To execute the test cases, Please run the below command.
 ### `npx Jest`
 
-## Npm Install
+## Npm Install under My--app
 
 `npm install --legacy-peer-deps`
 
