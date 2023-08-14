@@ -2,7 +2,8 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import Navbar from '../../components/navbar/navbar'; // Import the component that uses the SVG
-
+import "../navbar/navbar.scss";
+import '@testing-library/jest-dom/extend-expect';
 // Mock the SVG import
 jest.mock('../../images/logo-grey.svg', () => 'mocked-svg-path');
 

@@ -1,10 +1,12 @@
 module.exports = {
+  testEnvironment: 'jsdom',
     "roots": [
       "<rootDir>/src"
     ],
 
     "transform": {
-      "^.+\\.(j|t)sx?$": "ts-jest"
+      "^.+\\.(j|t)sx?$": "ts-jest",
+      "\\.(svg)$": "jest-raw-loader"
     },
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
     "moduleFileExtensions": [
@@ -27,5 +29,9 @@ module.exports = {
       "!src/setupProxy.js",
       "!src/**/*.stories.{js,jsx,ts,tsx}"
     ],
+    moduleNameMapper: {
+     '\\.(scss|css)$': 'identity-obj-proxy',
+     "axios": "axios/dist/node/axios.cjs"
+    },
     
   }

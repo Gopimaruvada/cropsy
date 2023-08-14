@@ -3,7 +3,7 @@ import React from "react";
 
 
 import WarningIcon from "@mui/icons-material/Warning";
-import "../navbar/navbar.scss";
+import "../navbar/navbar.css";
 const menuOptionsData = [
   { id: 1, label: "Map", link: "" },
   { id: 2, label: "Dashboard", link: "" },

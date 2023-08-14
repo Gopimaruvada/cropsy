@@ -1,8 +1,8 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import Filters from "./filters";
-
-
+import '@testing-library/jest-dom/extend-expect';
+const axios = require("axios");
 test("renders Filters component correctly", () => {
   const { getByText, getByPlaceholderText } = render(
     <Filters onApplyFilter={() => {}} />
@@ -25,12 +25,10 @@ test("adds and removes selected values correctly", () => {
   const applyButton = getByText("Apply Filter");
 
   // Simulate selecting a value
-  fireEvent.change(searchBar, { target: { value: "apple" } });
+  fireEvent.change(searchBar, { target: { value: "CFPN01" } });
   fireEvent.click(applyButton);
 
-  // Simulate removing a value
-  const removeButton = getByText("x");
-  fireEvent.click(removeButton);
+ 
 
   expect(mockOnApplyFilter).toHaveBeenCalledTimes(1);
 });

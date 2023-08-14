@@ -1,9 +1,16 @@
 import React, { useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { getRowReportsById } from "../../services/apiService";
 import { RowData, DataTableProps, CustomStat } from "../../Models/index";
+
+
 import "./datagrid.scss";
+import { setRowReports } from "../../store/actions/apiActions";
+
+
 const columns: GridColDef[] = [
+  
   { field: "attribute", headerName: "Attribute", width: 130 },
   { field: "blockId", headerName: "Block ID", width: 100 },
   { field: "rowId", headerName: "Row ID", width: 100 },
@@ -19,7 +26,9 @@ const columns: GridColDef[] = [
 
 const DataTable: React.FC<DataTableProps> = ({ selectedFilterValues }) => {
   const [data, setData] = React.useState<RowData[]>([]);
- 
+  const dispatch = useDispatch();
+  const apiState = useSelector((state: any) => state.api);
+
   const [sumOfVines, setSumVines] = React.useState<number>(0);
   const [punedTarget, setPunedTarget] = React.useState("");
   useEffect(() => {
@@ -37,6 +46,7 @@ const DataTable: React.FC<DataTableProps> = ({ selectedFilterValues }) => {
   const fetchData = async (selectedId: number) => {
     try {
       const rowReports = await getRowReportsById(selectedId);
+      dispatch(setRowReports(rowReports));
       const sumOfAllVines = data.reduce((total, row) => {
         const vineKeys = Object.keys(row).filter((key) =>
           key.includes("Canes")
@@ -69,7 +79,7 @@ const DataTable: React.FC<DataTableProps> = ({ selectedFilterValues }) => {
       ).toFixed(2);
       setPunedTarget(prunedToTargetPercentage);
       console.log("Pruned to Target Percentage:", prunedToTargetPercentage);
-      const customStatsRows: RowData[] = rowReports?.map((row: any) => {
+      const customStatsRows: RowData[] = rowReports.map((row: any) => {
         const rowData: RowData = {
           id: row.id,
           attribute: row.attribute,
