@@ -1,5 +1,3 @@
-// apiService.js
-
 import axios from "axios";
 
 export const getRowReportsById = async (id: number) => {

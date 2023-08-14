@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import SelectedValueBox from "./SelectedValueBox";
-import SearchBar from "../filters/searchBar";
+import SelectedValueBox from "./selectedValueBox/SelectedValueBox";
+import SearchBar from "./searchBar/searchBar";
 import { BlockOption } from "../../Models/index";
 
 interface FiltersProps {

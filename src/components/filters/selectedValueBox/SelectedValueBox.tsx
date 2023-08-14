@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { SearchResult } from "../../Models/index";
+import { SearchResult } from "../../../Models/index";
 
 interface SelectedValueBoxProps {
   selectedValues: SearchResult[];
@@ -15,7 +15,7 @@ const SelectedValueBox: React.FC<SelectedValueBoxProps> = ({
 }) => {
   return (
     <div>
-      <div style={{marginTop:10, marginBottom:10}}>Blocks</div>
+      <div style={{ marginTop: 10, marginBottom: 10 }}>Blocks</div>
       <div
         style={{
           backgroundColor: "white",

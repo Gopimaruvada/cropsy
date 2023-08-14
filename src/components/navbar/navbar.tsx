@@ -1,8 +1,9 @@
+import img from "../../images/logo-grey.svg";
 import React from "react";
-import logo from "../../images/logo-grey.svg";
-import "./navbar.scss";
-import WarningIcon from "@mui/icons-material/Warning";
 
+
+import WarningIcon from "@mui/icons-material/Warning";
+import "../navbar/navbar.scss";
 const menuOptionsData = [
   { id: 1, label: "Map", link: "" },
   { id: 2, label: "Dashboard", link: "" },
@@ -19,7 +20,7 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="logo">
-        <img src={logo} alt="Logo" />
+        <img src={img} alt="Logo" />
       </div>
       <ul className="menu-options">
         {menuOptionsData.map((option) => (

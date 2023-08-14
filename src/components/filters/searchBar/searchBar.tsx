@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { FaSearch, FaTimes } from "react-icons/fa";
-import { getBlocks } from "../../services/apiService";
-import "./Filter.scss";
-import { BlockOption } from "../../Models/index";
+import { getBlocks } from "../../../services/apiService";
+import "../../filters/Filter.scss";
+import { BlockOption } from "../../../Models/index";
 
 interface SearchBarProps {
   results: BlockOption[];
