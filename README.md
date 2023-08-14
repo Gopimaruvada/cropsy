@@ -16,7 +16,7 @@ You will also see any lint errors in the console.
 
 ### `npx Jest`
 
-## NPm Install
+## Npm Install
 
 `npm install --legacy-peer-deps`
 
